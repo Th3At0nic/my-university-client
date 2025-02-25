@@ -1,37 +1,8 @@
-// import {
-//   UploadOutlined,
-//   UserOutlined,
-//   VideoCameraOutlined,
-// } from "@ant-design/icons";
-import { Layout, Menu, MenuProps, theme } from "antd";
+import { Layout, Menu, theme } from "antd";
 import { Outlet } from "react-router-dom";
+import { adminSidebarItems } from "../../routes/adminRoutes";
 
 const { Header, Content, Footer, Sider } = Layout;
-
-const items: MenuProps["items"] = [
-  {
-    key: "1",
-    label: "Dashboard",
-  },
-  {
-    key: "2",
-    label: "Profile",
-  },
-  {
-    key: "3",
-    label: "User Management",
-    children: [
-      {
-        key: "11",
-        label: "Create Admin",
-      },
-      {
-        key: "12",
-        label: "Create Student",
-      },
-    ],
-  },
-];
 
 const MainLayout = () => {
   const {
@@ -65,7 +36,7 @@ const MainLayout = () => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["4"]}
-          items={items}
+          items={adminSidebarItems}
         />
       </Sider>
       <Layout>
