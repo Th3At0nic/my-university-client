@@ -18,8 +18,8 @@ const Login = () => {
 
   const [login, { data, error }] = useLoginMutation();
 
-  // console.log("data => ", data);
-  // console.log("error => ", error);
+  console.log("data => ", data);
+  console.log("error => ", error);
 
   const onSubmit = async (useData: any) => {
     console.log("login Data: ", useData);
