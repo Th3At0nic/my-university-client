@@ -33,16 +33,8 @@ export const Sidebar = () => {
   }
 
   return (
-    <Sider
-      breakpoint="lg"
-      collapsedWidth="0"
-      onBreakpoint={(broken) => {
-        console.log(broken);
-      }}
-      onCollapse={(collapsed, type) => {
-        console.log(collapsed, type);
-      }}
-    >
+    <Sider breakpoint="lg" collapsedWidth="0">
+      {/* Logo */}
       <div
         className="demo-logo-vertical"
         style={{
@@ -54,6 +46,9 @@ export const Sidebar = () => {
       >
         <h1>Ph Uni</h1>
       </div>
+
+      {/* Sidebar Menu - Takes Remaining Space */}
+
       <Menu
         theme="dark"
         mode="inline"

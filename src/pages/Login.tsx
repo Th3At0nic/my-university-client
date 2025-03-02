@@ -1,37 +1,45 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "antd";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { verifyToken } from "../utils/verifyToken";
 import { useDispatch } from "react-redux";
-import { setUser } from "../redux/features/auth/authSlice";
-
-// type TLoginFormData = {
-//   id: string;
-//   password: string;
-// };
+import { setUser, TUser } from "../redux/features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const Login = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { register, handleSubmit } = useForm();
 
-  const [login, { data, error }] = useLoginMutation();
+  const [login] = useLoginMutation();
 
-  console.log("data => ", data);
-  console.log("error => ", error);
+  const onSubmit = async (formData: FieldValues) => {
+    const toastId = toast.loading("Logging in...");
+    try {
+      console.log("login Data: ", formData);
+      const userInfo = {
+        id: formData.id,
+        password: formData.password,
+      };
+      const res = await login(userInfo).unwrap();
 
-  const onSubmit = async (useData: any) => {
-    console.log("login Data: ", useData);
-    const userInfo = {
-      id: useData.id,
-      password: useData.password,
-    };
-    const res = await login(userInfo).unwrap();
+      const user = verifyToken(res.data.accessToken) as TUser;
 
-    const user = verifyToken(res.data.accessToken);
+      dispatch(setUser({ user: user, token: res.data.accessToken }));
 
-    dispatch(setUser({ user: user, token: res.data.accessToken }));
+      toast.success("Logged in successfully", { id: toastId, duration: 2000 });
+
+      navigate(`/${user.role}/dashboard`);
+    } catch (err) {
+      toast.error(`Something went wrong.`, {
+        id: toastId,
+        duration: 2000,
+      });
+    }
   };
 
   return (
