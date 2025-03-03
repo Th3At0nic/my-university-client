@@ -20,7 +20,6 @@ const Login = () => {
   const onSubmit = async (formData: FieldValues) => {
     const toastId = toast.loading("Logging in...");
     try {
-      console.log("login Data: ", formData);
       const userInfo = {
         id: formData.id,
         password: formData.password,
