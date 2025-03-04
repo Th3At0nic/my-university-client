@@ -6,7 +6,7 @@ import {
   fetchBaseQuery,
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query/react";
-import { setUser } from "../features/auth/authSlice";
+import { logoutUser, setUser } from "../features/auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/api/v1",
@@ -27,7 +27,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   unknown, // Return type (usually inferred)
   FetchBaseQueryError // Error type
 > = async (args, api, extraOptions) => {
-  const result = await baseQuery(args, api, extraOptions);
+  let result = await baseQuery(args, api, extraOptions);
 
   if (result.error?.status === 401) {
     // Request a new token
@@ -39,14 +39,21 @@ const baseQueryWithRefreshToken: BaseQueryFn<
       }
     ).then((response) => response.json());
 
-    const user = (api.getState() as RootState).auth.user;
+    if (refreshResult?.data?.accessToken) {
+      const user = (api.getState() as RootState).auth.user;
 
-    api.dispatch(
-      setUser({
-        user,
-        token: refreshResult.data.accessToken,
-      })
-    );
+      api.dispatch(
+        setUser({
+          user,
+          token: refreshResult.data.accessToken,
+        })
+      );
+
+      // calling the base query again to auto reload the page/query to capture the result after accessing the new access token and authorization, it doesn't visually reloads the page, it update the state internally without reloading the page
+      result = await baseQuery(args, api, extraOptions);
+    } else {
+      api.dispatch(logoutUser());
+    }
   }
 
   return result;
