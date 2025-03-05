@@ -34,7 +34,7 @@ const Login = () => {
 
       navigate(`/${user.role}/dashboard`);
     } catch (err) {
-      toast.error(`Something went wrong.`, {
+      toast.error(`Something went wrong`, {
         id: toastId,
         duration: 2000,
       });
