@@ -8,6 +8,7 @@ import {
 } from "@reduxjs/toolkit/query/react";
 import { logoutUser, setUser } from "../features/auth/authSlice";
 import { toast } from "sonner";
+import { TResponse } from "../../types/globalTypes";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/api/v1",
@@ -30,8 +31,8 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
-  if (result?.error?.status === 404) {
-    toast.error("User not found.", { duration: 2000 });
+  if ((result as TResponse)?.error?.status === 404) {
+    toast.error((result as TResponse).error?.data.message, { duration: 2000 });
   }
 
   if (result?.error?.status === 401) {
