@@ -17,13 +17,11 @@ const yearOptions = [0, 1, 2, 3, 4].map((number) => ({
   label: String(currentYear + number),
 }));
 
-console.log();
-
 const CreateAcademicSemester = () => {
   const [addAcademicSemester] = useAddAcademicSemesterMutation();
 
   const onSubmit = async (data: FieldValues) => {
-    const toastId = toast.loading("Creating Semester...");
+    const toastId = toast.loading("Creating Academic Semester...");
     const selectedSemesterData = {
       name: semesterOptions[Number(data?.name) - 1]?.label,
       code: data?.name,
@@ -43,7 +41,7 @@ const CreateAcademicSemester = () => {
           id: toastId,
         });
       } else {
-        toast.success("Successfully Created Semester.", {
+        toast.success("Academic Semester Created Successfully.", {
           duration: 2000,
           id: toastId,
         });
