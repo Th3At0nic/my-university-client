@@ -31,20 +31,3 @@ export type TQueryParam = {
   name: string;
   value: boolean | React.Key;
 };
-
-// export type TResponse = {
-//   data: {
-//     code: string;
-//     createdAt: string;
-//     endMonth: string;
-//     name: string;
-//     startMonth: string;
-//     updatedAt: string;
-//     year: string;
-//     __v: number;
-//     _id: string;
-//   };
-//   message: string;
-//   success: boolean;
-//   error?: TError;
-// };

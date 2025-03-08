@@ -1,12 +1,26 @@
 import { Button, Table, TableColumnsType, TableProps } from "antd";
 import { useGetAllAcademicFacultiesQuery } from "../../../redux/features/admin/academicManagementApi";
 import { TAcademicFaculty } from "../../../types/academicManagement.type";
+import { useAppDispatch } from "../../../redux/hooks";
+import { setAcademicFaculties } from "../../../redux/features/admin/academicFacultySlice";
+import { useEffect } from "react";
 
 type TTableData = Pick<TAcademicFaculty, "_id" | "name">;
 
 const AcademicFaculty = () => {
-  const { data: academicFaculties, error } =
-    useGetAllAcademicFacultiesQuery(undefined);
+  const dispatch = useAppDispatch();
+
+  const {
+    data: academicFaculties,
+    error,
+    isFetching,
+  } = useGetAllAcademicFacultiesQuery(undefined);
+
+  useEffect(() => {
+    if (academicFaculties) {
+      dispatch(setAcademicFaculties(academicFaculties.data)); //  Runs after first render
+    }
+  }, [dispatch, academicFaculties]);
 
   const tableData = error
     ? []
@@ -51,6 +65,7 @@ const AcademicFaculty = () => {
     <Table<TTableData>
       columns={columns}
       dataSource={tableData}
+      loading={{ spinning: isFetching, size: "large" }}
       onChange={onChange}
       showSorterTooltip={{ target: "sorter-icon" }}
     />
