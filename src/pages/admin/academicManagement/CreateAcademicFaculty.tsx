@@ -40,7 +40,7 @@ const CreateAcademicFaculty = () => {
         });
       }
     } catch (err) {
-      console.log("ekhaen err", err);
+      console.log(err);
       toast.error("Something went wrong", { duration: 2000, id: toastId });
     }
   };

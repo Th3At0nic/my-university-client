@@ -1,4 +1,5 @@
 import {
+  TAcademicDepartment,
   TAcademicFaculty,
   TAcademicSemester,
 } from "../../../types/academicManagement.type";
@@ -62,6 +63,18 @@ const academicManagementApi = baseApi.injectEndpoints({
         body: data,
       }),
     }),
+    getAllAcademicDepartments: builder.query({
+      query: () => ({
+        url: "/academic-departments",
+        method: "GET",
+      }),
+      transformResponse: (response: TResponseRedux<TAcademicDepartment[]>) => {
+        return {
+          data: response?.data,
+          meta: response?.meta,
+        };
+      },
+    }),
   }),
 });
 
@@ -71,4 +84,5 @@ export const {
   useAddAcademicFacultyMutation,
   useGetAllAcademicFacultiesQuery,
   useAddAcademicDepartmentMutation,
+  useGetAllAcademicDepartmentsQuery,
 } = academicManagementApi;
