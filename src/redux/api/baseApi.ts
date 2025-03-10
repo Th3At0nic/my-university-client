@@ -8,7 +8,7 @@ import {
 } from "@reduxjs/toolkit/query/react";
 import { logoutUser, setUser } from "../features/auth/authSlice";
 import { toast } from "sonner";
-import { TError, TResponse } from "../../types/globalTypes";
+import { TError, TResponse } from "../../types/global.type";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/api/v1",

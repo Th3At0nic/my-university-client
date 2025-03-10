@@ -2,8 +2,9 @@ import {
   TAcademicDepartment,
   TAcademicFaculty,
   TAcademicSemester,
-} from "../../../types/academicManagement.type";
-import { TQueryParam, TResponseRedux } from "../../../types/globalTypes";
+  TQueryParam,
+  TResponseRedux,
+} from "../../../types";
 import { baseApi } from "../../api/baseApi";
 
 const academicManagementApi = baseApi.injectEndpoints({

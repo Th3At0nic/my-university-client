@@ -6,7 +6,7 @@ import PHInput from "../../../components/form/PHInput";
 import { createAcademicFacultySchema } from "../../../schemas/academicManagement.schema";
 import { useAddAcademicFacultyMutation } from "../../../redux/features/admin/academicManagementApi";
 import { toast } from "sonner";
-import { TResponse } from "../../../types/globalTypes";
+import { TResponse } from "../../../types/global.type";
 import { TFacultyResponse } from "../../../types/academicManagement.type";
 import { useAppDispatch } from "../../../redux/hooks";
 import { setAcademicFaculties } from "../../../redux/features/admin/academicFacultySlice";
