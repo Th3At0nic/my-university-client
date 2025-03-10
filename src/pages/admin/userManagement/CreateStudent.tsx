@@ -13,44 +13,7 @@ import {
   useGetAllAcademicSemesterQuery,
 } from "../../../redux/features/admin/academicManagementApi";
 import { useAddStudentMutation } from "../../../redux/features/admin/userManagementApi";
-
-// const studentDemoData = {
-//   password: "student123",
-//   student: {
-//     name: {
-//       firstName: "Rahat",
-//       middleName: "Mohammad",
-//       lastName: "Shuvo",
-//     },
-//     gender: "male",
-//     dateOfBirth: "2000-05-15",
-//     bloodGroup: "A+",
-
-//     email: "john3@example.com",
-//     contactNo: "1455125893",
-//     emergencyContactNo: "098145542321",
-//     presentAddress: "123 Elm Street, Springfield",
-//     permanentAddress: "456 Oak Street, Springfield",
-
-//     guardian: {
-//       fatherName: "Robert Doe",
-//       fatherOccupation: "Engineer",
-//       fatherContact: "1111111111",
-//       motherName: "Jane Doe",
-//       motherOccupation: "Teacher",
-//       motherContact: "2222222222",
-//     },
-//     localGuardian: {
-//       name: "Emily Stone",
-//       occupation: "Lawyer",
-//       contactNo: "3333333",
-//       address: "789 Maple Street, Springfield",
-//     },
-
-//     academicDepartment: "679e22c49a1ffbfc1cefe288",
-//     admissionSemester: "679e250273741ba15e366753",
-//   },
-// };
+import PHImageInput from "../../../components/form/PHImageInput";
 
 //this is for testing purpose, this should be removed
 const studentDefaultValue = {
@@ -62,8 +25,8 @@ const studentDefaultValue = {
   gender: "male",
   bloodGroup: "A+",
 
-  email: "john3@example.com",
-  contactNo: "1455125893",
+  email: "john3a@example.com",
+  contactNo: "145512589121",
   emergencyContactNo: "098145542321",
   presentAddress: "123 Elm Street, Springfield",
   permanentAddress: "456 Oak Street, Springfield",
@@ -94,9 +57,7 @@ const CreateStudent = () => {
   const { data: departmentData, isLoading: departmentIsLoading } =
     useGetAllAcademicDepartmentsQuery(undefined);
 
-  const [addStudent, { error, data }] = useAddStudentMutation();
-  console.log("ekhane stu mutation err:", error);
-  console.log("ekhane stu mutation data:", data);
+  const [addStudent] = useAddStudentMutation();
 
   const departmentOptions = departmentData?.data?.map((item) => ({
     value: item._id,
@@ -115,11 +76,12 @@ const CreateStudent = () => {
     };
     const formData = new FormData();
     formData.append("data", JSON.stringify(stuData));
+    formData.append("file", data.profileImg);
 
     addStudent(formData);
 
     //this is just for development testing purpose
-    console.log(Object.fromEntries(formData));
+    // console.log(Object.fromEntries(formData));
   };
 
   return (
@@ -149,6 +111,9 @@ const CreateStudent = () => {
                 label="Blood Group"
                 options={bloodGroupOptions}
               />
+            </Col>
+            <Col span={24} lg={8} md={12}>
+              <PHImageInput name="profileImg" label="Upload Profile Picture" />
             </Col>
           </Row>
           <Divider>Contact Info</Divider>
