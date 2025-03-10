@@ -13,7 +13,7 @@ import {
 import PHSelect from "../../../components/form/PHSelect";
 import { useAddAcademicDepartmentMutation } from "../../../redux/features/admin/academicManagementApi";
 import { toast } from "sonner";
-import { TResponse } from "../../../types/globalTypes";
+import { TResponse } from "../../../types/global.type";
 
 const CreateAcademicDepartment = () => {
   const [addAcademicDepartment] = useAddAcademicDepartmentMutation();

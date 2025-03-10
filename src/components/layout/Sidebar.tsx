@@ -3,7 +3,7 @@ import { sidebarItemsGenerator } from "../../utils/sidebarItemsGenerator";
 import { adminPaths } from "../../routes/adminRoutes";
 import { facultyPaths } from "../../routes/facultyRoutes";
 import { studentPaths } from "../../routes/StudentRoutes";
-import { TSidebarItem } from "../../types/sidebarTypes";
+import { TSidebarItem } from "../../types/sidebar.type";
 import { useAppSelector } from "../../redux/hooks";
 import { currentUser } from "../../redux/features/auth/authSlice";
 

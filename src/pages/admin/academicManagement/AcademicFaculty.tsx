@@ -1,9 +1,9 @@
 import { Button, Table, TableColumnsType, TableProps } from "antd";
 import { useGetAllAcademicFacultiesQuery } from "../../../redux/features/admin/academicManagementApi";
-import { TAcademicFaculty } from "../../../types/academicManagement.type";
 import { useAppDispatch } from "../../../redux/hooks";
 import { setAcademicFaculties } from "../../../redux/features/admin/academicFacultySlice";
 import { useEffect } from "react";
+import { TAcademicFaculty } from "../../../types";
 
 type TTableData = Pick<TAcademicFaculty, "_id" | "name">;
 

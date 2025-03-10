@@ -1,6 +1,6 @@
-import { TAcademicFacultyInitialState } from "./../../../types/academicManagement.type";
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
+import { TAcademicFacultyInitialState } from "../../../types";
 
 const initialState = {
   academicFaculties: [] as TAcademicFacultyInitialState[],
