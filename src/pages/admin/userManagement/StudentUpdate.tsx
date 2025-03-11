@@ -2,7 +2,6 @@ import { Row, Col, Divider, Button } from "antd";
 import { SubmitHandler, FieldValues } from "react-hook-form";
 import PHDatePicker from "../../../components/form/PHDatePicker";
 import PHForm from "../../../components/form/PHForm";
-import PHImageInput from "../../../components/form/PHImageInput";
 import PHInput from "../../../components/form/PHInput";
 import PHSelect from "../../../components/form/PHSelect";
 import {
@@ -100,9 +99,9 @@ const StudentUpdate = () => {
                 options={bloodGroupOptions}
               />
             </Col>
-            <Col span={24} lg={8} md={12}>
+            {/* <Col span={24} lg={8} md={12}>
               <PHImageInput name="profileImg" label="Upload Profile Picture" />
-            </Col>
+            </Col> */}
           </Row>
           <Divider>Contact Info</Divider>
           <Row gutter={10}>
