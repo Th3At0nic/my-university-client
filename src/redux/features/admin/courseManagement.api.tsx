@@ -1,29 +1,30 @@
+import { TQueryParam, TResponseRedux, TSemester } from "../../../types";
 import { baseApi } from "../../api/baseApi";
 
 const courseManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // getAllStudents: builder.query({
-    //   query: (args) => {
-    //     const params = new URLSearchParams();
+    getAllRegisteredSemesters: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
 
-    //     if (args) {
-    //       args.forEach((item: TQueryParam) => {
-    //         params.append(item.name, item.value as string);
-    //       });
-    //     }
-    //     return {
-    //       url: "/students",
-    //       method: "GET",
-    //       params: params,
-    //     };
-    //   },
-    //   transformResponse: (response: TResponseRedux<TStudent[]>) => {
-    //     return {
-    //       data: response?.data,
-    //       meta: response?.meta,
-    //     };
-    //   },
-    // }),
+        if (args) {
+          args.forEach((item: TQueryParam) => {
+            params.append(item.name, item.value as string);
+          });
+        }
+        return {
+          url: "/semester-registrations/",
+          method: "GET",
+          params: params,
+        };
+      },
+      transformResponse: (response: TResponseRedux<TSemester[]>) => {
+        return {
+          data: response?.data,
+          meta: response?.meta,
+        };
+      },
+    }),
 
     addRegisteredSemester: builder.mutation({
       query: (data) => ({
@@ -32,7 +33,21 @@ const courseManagementApi = baseApi.injectEndpoints({
         body: data,
       }),
     }),
+    updateRegisteredSemester: builder.mutation({
+      query: (args) => {
+        console.log("ekhane args: ", args);
+        return {
+          url: `/semester-registrations/${args.id}`,
+          method: "PATCH",
+          body: args.data,
+        };
+      },
+    }),
   }),
 });
 
-export const { useAddRegisteredSemesterMutation } = courseManagementApi;
+export const {
+  useAddRegisteredSemesterMutation,
+  useGetAllRegisteredSemestersQuery,
+  useUpdateRegisteredSemesterMutation,
+} = courseManagementApi;
