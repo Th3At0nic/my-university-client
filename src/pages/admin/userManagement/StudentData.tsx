@@ -9,19 +9,20 @@ import {
 import { useGetAllStudentsQuery } from "../../../redux/features/admin/userManagementApi";
 import { TQueryParam, TStudent } from "../../../types";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-type TTableData = Pick<TStudent, "fullName" | "id">;
+type TTableData = Pick<TStudent, "fullName" | "id" | "email" | "contactNo">;
 
 const StudentData = () => {
   const [params, setParams] = useState<TQueryParam[]>([]);
-  const [page, setPage] = useState(3);
+  const [page, setPage] = useState(1);
 
   const {
     data: studentData,
     error,
     isFetching,
   } = useGetAllStudentsQuery([
-    { name: "limit", value: "3" },
+    { name: "limit", value: "10" },
     { name: "page", value: page },
     { name: "sortBy", value: "id" },
     ...params,
@@ -31,30 +32,48 @@ const StudentData = () => {
 
   const tableData = error
     ? []
-    : studentData?.data?.map(({ _id, fullName, id }) => ({
+    : studentData?.data?.map(({ _id, fullName, id, email, contactNo }) => ({
         key: _id,
         fullName,
         id,
+        email,
+        contactNo,
       }));
 
   const columns: TableColumnsType<TTableData> = [
     {
       title: "Name",
+      key: "fullName",
       dataIndex: "fullName",
     },
 
     {
       title: "Roll No.",
+      key: "id",
       dataIndex: "id",
+    },
+    {
+      title: "Email",
+      key: "email",
+      dataIndex: "email",
+    },
+    {
+      title: "Contact No.",
+      key: "contactNo",
+      dataIndex: "contactNo",
     },
     {
       title: "Action",
       key: "x",
-      render: () => {
+      render: (item) => {
         return (
           <Space>
-            <Button>Update</Button>
-            <Button>Details</Button>
+            <Link to={`/admin/student-data/${item.key}`}>
+              <Button>Details</Button>
+            </Link>
+            <Link to={`/admin/student-update/${item.key}`}>
+              <Button>Update</Button>
+            </Link>
             <Button>Change Status</Button>
           </Space>
         );
