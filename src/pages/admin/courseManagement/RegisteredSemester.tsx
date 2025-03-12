@@ -107,25 +107,11 @@ const RegisteredSemesters = () => {
     },
   ];
 
-  // const onChange: TableProps<TTableData>["onChange"] = (
-  //   _pagination,
-  //   filters,
-  //   _sorter,
-  //   extra
-  // ) => {
-  //   if (extra.action === "filter") {
-  //     const queryParams: TQueryParam[] = [];
-
-  //     setParams(queryParams);
-  //   }
-  // };
-
   return (
     <Table
       loading={{ spinning: isFetching, size: "large" }}
       columns={columns}
       dataSource={tableData}
-      // onChange={onChange}
       showSorterTooltip={{ target: "sorter-icon" }}
     />
   );
