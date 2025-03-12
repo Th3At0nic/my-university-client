@@ -8,12 +8,8 @@ import { useAddAcademicFacultyMutation } from "../../../redux/features/admin/aca
 import { toast } from "sonner";
 import { TResponse } from "../../../types/global.type";
 import { TFacultyResponse } from "../../../types/academicManagement.type";
-import { useAppDispatch } from "../../../redux/hooks";
-import { setAcademicFaculties } from "../../../redux/features/admin/academicFacultySlice";
 
 const CreateAcademicFaculty = () => {
-  const dispatch = useAppDispatch();
-
   const [addAcademicFaculty] = useAddAcademicFacultyMutation();
 
   const onSubmit = async (data: FieldValues) => {
@@ -30,10 +26,6 @@ const CreateAcademicFaculty = () => {
           id: toastId,
         });
       } else {
-        const cleanedData = { ...res.data?.data };
-        delete cleanedData.__v; //removing __v from the data to match the redux state data type
-        dispatch(setAcademicFaculties(cleanedData));
-
         toast.success("Academic Faculty Created Successfully.", {
           duration: 2000,
           id: toastId,

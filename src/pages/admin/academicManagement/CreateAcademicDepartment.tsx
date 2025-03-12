@@ -4,28 +4,34 @@ import PHForm from "../../../components/form/PHForm";
 import PHInput from "../../../components/form/PHInput";
 import { createAcademicDepartmentSchema } from "../../../schemas/academicManagement.schema";
 import { FieldValues } from "react-hook-form";
-import { useAppSelector } from "../../../redux/hooks";
-import { useAcademicFaculties } from "../../../redux/features/admin/academicFacultySlice";
-import {
-  TAcademicFacultyInitialState,
-  TDepartmentResponse,
-} from "../../../types/academicManagement.type";
+import { TDepartmentResponse } from "../../../types/academicManagement.type";
 import PHSelect from "../../../components/form/PHSelect";
-import { useAddAcademicDepartmentMutation } from "../../../redux/features/admin/academicManagementApi";
+import {
+  useAddAcademicDepartmentMutation,
+  useGetAllAcademicFacultiesQuery,
+} from "../../../redux/features/admin/academicManagementApi";
 import { toast } from "sonner";
 import { TResponse } from "../../../types/global.type";
+import { useEffect, useState } from "react";
 
 const CreateAcademicDepartment = () => {
+  const [academicFacultyOptions, setAcademicFacultyOptions] = useState<
+    { value: string; label: string }[]
+  >([]);
   const [addAcademicDepartment] = useAddAcademicDepartmentMutation();
 
-  const academicFaculties = useAppSelector(
-    useAcademicFaculties
-  ) as TAcademicFacultyInitialState[];
+  const { data: academicFaculties, error } =
+    useGetAllAcademicFacultiesQuery(undefined);
 
-  const academicFacultyOptions = academicFaculties.map((item) => ({
-    value: String(item._id),
-    label: item.name,
-  }));
+  useEffect(() => {
+    if (academicFaculties && !error) {
+      const AFacultyOptions = academicFaculties?.data?.map((item) => ({
+        value: String(item._id),
+        label: item.name,
+      }));
+      setAcademicFacultyOptions(AFacultyOptions!);
+    }
+  }, [academicFaculties, error]);
 
   const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Creating Academic Department...");

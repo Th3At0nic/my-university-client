@@ -18,6 +18,7 @@ const userManagementApi = baseApi.injectEndpoints({
           params: params,
         };
       },
+      providesTags: ["students"],
       transformResponse: (response: TResponseRedux<TStudent[]>) => {
         return {
           data: response?.data,
@@ -45,6 +46,7 @@ const userManagementApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["students"],
     }),
     updateStudent: builder.mutation({
       query: ({ id, data }) => ({
@@ -52,6 +54,7 @@ const userManagementApi = baseApi.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
+      invalidatesTags: ["students"],
     }),
   }),
 });
