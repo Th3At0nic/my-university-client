@@ -8,6 +8,7 @@ type TPHSelectProps = {
   options: { value: string; label: string; disabled?: boolean }[] | undefined;
   disabled?: boolean;
   defaultValue?: { value: string; label: string };
+  mode?: "multiple" | "tags" | undefined;
 };
 
 const PHSelect = ({
@@ -16,6 +17,7 @@ const PHSelect = ({
   options,
   disabled,
   defaultValue,
+  mode,
 }: TPHSelectProps) => {
   const { setValue } = useFormContext(); // Accessing the form context
 
@@ -34,6 +36,7 @@ const PHSelect = ({
           <Select
             style={{ width: "100%" }}
             {...field}
+            mode={mode}
             options={options}
             size="large"
             disabled={disabled}
