@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Flex, Col, Button } from "antd";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
@@ -52,7 +51,7 @@ const CreateCourse = () => {
         });
       }
     } catch (err) {
-      console.log("ekhaen err", err);
+      console.log("err from createCourse:", err);
       toast.error("Something went wrong", { duration: 3000, id: toastId });
     }
   };
