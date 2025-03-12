@@ -24,6 +24,7 @@ const academicManagementApi = baseApi.injectEndpoints({
           params: params,
         };
       },
+      providesTags: ["academicSemester"],
       transformResponse: (response: TResponseRedux<TAcademicSemester[]>) => {
         return {
           data: response?.data,
@@ -37,19 +38,14 @@ const academicManagementApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
-    }),
-    addAcademicFaculty: builder.mutation({
-      query: (data) => ({
-        url: "/academic-faculties/create-academic-faculty",
-        method: "POST",
-        body: data,
-      }),
+      invalidatesTags: ["academicSemester"],
     }),
     getAllAcademicFaculties: builder.query({
       query: () => ({
         url: "/academic-faculties",
         method: "GET",
       }),
+      providesTags: ["academicFaculty"],
       transformResponse: (response: TResponseRedux<TAcademicFaculty[]>) => {
         return {
           data: response?.data,
@@ -57,24 +53,36 @@ const academicManagementApi = baseApi.injectEndpoints({
         };
       },
     }),
-    addAcademicDepartment: builder.mutation({
+    addAcademicFaculty: builder.mutation({
       query: (data) => ({
-        url: "/academic-departments/create-academic-department",
+        url: "/academic-faculties/create-academic-faculty",
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["academicFaculty"],
     }),
+
     getAllAcademicDepartments: builder.query({
       query: () => ({
         url: "/academic-departments",
         method: "GET",
       }),
+      providesTags: ["academicDepartment"],
       transformResponse: (response: TResponseRedux<TAcademicDepartment[]>) => {
         return {
           data: response?.data,
           meta: response?.meta,
         };
       },
+    }),
+
+    addAcademicDepartment: builder.mutation({
+      query: (data) => ({
+        url: "/academic-departments/create-academic-department",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["academicDepartment"],
     }),
   }),
 });

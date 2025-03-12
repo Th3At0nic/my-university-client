@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./features/auth/authSlice";
-import academicFacultyReducer from "./features/admin/academicFacultySlice";
 import { baseApi } from "./api/baseApi";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
@@ -19,23 +18,13 @@ const persistAuthConfig = {
   key: "auth",
   storage,
 };
-const persistAcademicFacultyConfig = {
-  key: "academicFaculty",
-  storage,
-};
 
 const persistedAuthReducer = persistReducer(persistAuthConfig, authReducer);
-
-const persistedAcademicFacultyReducer = persistReducer(
-  persistAcademicFacultyConfig,
-  academicFacultyReducer
-);
 
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     auth: persistedAuthReducer,
-    academicFaculty: persistedAcademicFacultyReducer,
   },
   middleware: (getDefaultMiddlewares) =>
     getDefaultMiddlewares({
