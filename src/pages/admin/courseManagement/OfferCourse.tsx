@@ -74,9 +74,10 @@ const OfferCourse = () => {
 
   /*********************** one  block ********************* */
 
-  const { data: courseFaculties } = useGetCourseFacultiesQuery(courseId, {
-    skip: !courseId,
-  });
+  const { data: courseFaculties, isFetching: isCourseFacultyFetching } =
+    useGetCourseFacultiesQuery(courseId, {
+      skip: !courseId,
+    });
 
   const courseFacultyOptions = courseFaculties?.data?.faculties.map((item) => ({
     label: item.fullName,
@@ -139,7 +140,7 @@ const OfferCourse = () => {
           <PHSelect
             label="Faculty"
             name="faculty"
-            disabled={!courseId}
+            disabled={!courseId || isCourseFacultyFetching}
             options={courseFacultyOptions}
           />
 
