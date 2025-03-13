@@ -3,9 +3,12 @@ import { sidebarItemsGenerator } from "../../utils/sidebarItemsGenerator";
 import { adminPaths } from "../../routes/adminRoutes";
 import { facultyPaths } from "../../routes/facultyRoutes";
 import { studentPaths } from "../../routes/StudentRoutes";
-import { TSidebarItem } from "../../types/sidebar.type";
 import { useAppSelector } from "../../redux/hooks";
-import { currentUser } from "../../redux/features/auth/authSlice";
+import {
+  TUserFromToken,
+  userCurrentToken,
+} from "../../redux/features/auth/authSlice";
+import { verifyToken } from "../../utils/verifyToken";
 
 const { Sider } = Layout;
 
@@ -14,13 +17,19 @@ const userRole = {
   FACULTY: "faculty",
   STUDENT: "student",
 };
-let sidebarItems: TSidebarItem[];
 
 export const Sidebar = () => {
-  const user = useAppSelector(currentUser);
+  const token = useAppSelector(userCurrentToken);
+
+  let user;
+
+  if (token) {
+    user = verifyToken(token) as TUserFromToken;
+  }
 
   // Using `user!` to assert that `user` is never null or undefined at this point.
   // This should only be used when we're 100% sure `user` exists to avoid runtime errors.
+  let sidebarItems;
 
   switch (user!.role) {
     case userRole.ADMIN:
