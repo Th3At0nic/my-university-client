@@ -91,7 +91,7 @@ const OfferCourse = () => {
 
   const [addOfferedCourse] = useAddOfferedCourseMutation();
 
-  /*********************** one  block ********************* */
+  /*********************** one  block ********************** */
 
   const onSubmit = (formData: FieldValues) => {
     console.log(formData);
