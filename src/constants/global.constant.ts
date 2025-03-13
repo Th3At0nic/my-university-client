@@ -42,3 +42,13 @@ export const bloodGroupOptions = bloodGroups.map((item) => ({
   value: item,
   label: item,
 }));
+
+export const daysOptionsArray = [
+  { label: "Monday", value: "Mon" },
+  { label: "Tuesday", value: "Tue" },
+  { label: "Wednesday", value: "Wed" },
+  { label: "Thursday", value: "Thu" },
+  { label: "Friday", value: "Fri" },
+  { label: "Saturday", value: "Sat" },
+  { label: "Sunday", value: "Sun" },
+];

@@ -26,7 +26,6 @@ const items = [
 
 const RegisteredSemesters = () => {
   const [semesterId, setSemesterId] = useState("");
-  console.log(semesterId);
   const {
     data: registeredSemesters,
     error,

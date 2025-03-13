@@ -10,6 +10,8 @@ import PHDatePicker from "../../../components/form/PHDatePicker";
 import PHInput from "../../../components/form/PHInput";
 import { useAddRegisteredSemesterMutation } from "../../../redux/features/admin/courseManagement.api";
 import { TResponse } from "../../../types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { semesterRegistrationSchema } from "../../../schemas/courseManagement.schema";
 
 const SemesterRegistration = () => {
   const [addSemester] = useAddRegisteredSemesterMutation();
@@ -29,14 +31,14 @@ const SemesterRegistration = () => {
     const selectedSemesterData = {
       ...data,
       minCredit: Number(data.minCredit),
-      maxCredit: Number(data.maxCredit)
+      maxCredit: Number(data.maxCredit),
     };
 
     try {
       const res = (await addSemester(selectedSemesterData)) as TResponse<any>;
 
       if (res?.error) {
-        console.log("res err;",res.error);
+        console.log("res err;", res.error);
         toast.error(res.error.data.message, {
           duration: 3000,
           id: toastId,
@@ -56,7 +58,10 @@ const SemesterRegistration = () => {
   return (
     <Flex justify="center" align="center">
       <Col span={6}>
-        <PHForm onSubmit={onSubmit}>
+        <PHForm
+          onSubmit={onSubmit}
+          resolver={zodResolver(semesterRegistrationSchema)}
+        >
           <PHSelect
             label="Academic Semester"
             name="academicSemester"
