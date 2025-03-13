@@ -24,12 +24,12 @@ export type TFacultyResponse = {
   data: TAcademicFaculty;
 };
 
-export type TAcademicFacultyInitialState = {
-  _id: string;
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-};
+// export type TAcademicFacultyInitialState = {
+//   _id: string;
+//   name: string;
+//   createdAt: string;
+//   updatedAt: string;
+// };
 
 export type TAcademicDepartment = {
   _id: string;

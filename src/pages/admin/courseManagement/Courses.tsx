@@ -56,12 +56,9 @@ const Courses = () => {
 };
 
 const AssignFacultyModal = ({ data }: { data: TCourseTableData }) => {
-  console.log("asign fac data; ", data);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [assignFaculties, { data: res, error }] = useAssignFacultiesMutation();
-  console.log("res: ", res);
-  console.log("err: ", error);
+  const [assignFaculties] = useAssignFacultiesMutation();
 
   const { data: faculties } = useGetAllFacultiesQuery(undefined);
 
