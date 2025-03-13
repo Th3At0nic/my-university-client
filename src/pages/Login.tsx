@@ -4,7 +4,7 @@ import { FieldValues } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { verifyToken } from "../utils/verifyToken";
 import { useDispatch } from "react-redux";
-import { setUser, TUser } from "../redux/features/auth/authSlice";
+import { setUser, TUserFromToken } from "../redux/features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import PHForm from "../components/form/PHForm";
@@ -26,7 +26,7 @@ const Login = () => {
       };
       const res = await login(userInfo).unwrap();
 
-      const user = verifyToken(res.data.accessToken) as TUser;
+      const user = verifyToken(res.data.accessToken) as TUserFromToken;
 
       dispatch(setUser({ user: user, token: res.data.accessToken }));
 
