@@ -8,8 +8,11 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { TError } from "../types";
 import { useState } from "react";
+import { useAppDispatch } from "../redux/hooks";
+import { logoutUser } from "../redux/features/auth/authSlice";
 
 const ChangePassword = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [changePassword] = useChangePasswordMutation();
 
@@ -23,9 +26,12 @@ const ChangePassword = () => {
         toast.success(res.data?.message, { duration: 2000 });
 
         setTimeout(() => {
-          toast.success("Now Login with your New Password", { duration: 5000 });
+          toast.success("Now login with your New Password to continue.", {
+            duration: 5000,
+          });
+          dispatch(logoutUser());
           navigate("/login");
-        }, 2300); // Wait for the first toast to disappear before showing the second
+        }, 2150); // Wait for the first toast to disappear before showing the second
       } else {
         toast.error((res?.error as TError)?.data.message, { duration: 4000 });
       }
