@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   logoutUser,
@@ -17,19 +17,28 @@ export const ProtectedRoute = ({ children, role }: TProtectedRoute) => {
   const dispatch = useAppDispatch();
   const token = useAppSelector(userCurrentToken);
 
-  let user;
+  const [shouldLogout, setShouldLogout] = useState(false);
 
-  if (token) {
-    user = verifyToken(token) as TUserFromToken;
-  }
+  useEffect(() => {
+    if (token) {
+      const verifiedUser = verifyToken(token) as TUserFromToken;
 
-  if (role !== undefined && role !== user?.role) {
-    dispatch(logoutUser());
+      if (role !== undefined && role !== verifiedUser?.role) {
+        setShouldLogout(true);
+      }
+    } else {
+      setShouldLogout(true);
+    }
+  }, [token, role]);
+
+  useEffect(() => {
+    if (shouldLogout) {
+      dispatch(logoutUser());
+    }
+  }, [shouldLogout, dispatch]);
+
+  if (!token || shouldLogout) {
     return <Navigate to="/login" replace={true} />;
   }
-  if (!token) {
-    return <Navigate to="/login" replace={true} />;
-  }
-
   return children;
 };

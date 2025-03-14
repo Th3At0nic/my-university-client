@@ -32,6 +32,8 @@ const Login = () => {
 
       toast.success("Logged in successfully", { id: toastId, duration: 2000 });
 
+      console.log("res login: ", res);
+
       navigate(`/${user.role}/dashboard`);
     } catch (err) {
       toast.error(`Something went wrong`, {
