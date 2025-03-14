@@ -21,7 +21,7 @@ const userRole = {
 export const Sidebar = () => {
   const token = useAppSelector(userCurrentToken);
 
-  let user;
+  let user = null;
 
   if (token) {
     user = verifyToken(token) as TUserFromToken;
@@ -31,7 +31,7 @@ export const Sidebar = () => {
   // This should only be used when we're 100% sure `user` exists to avoid runtime errors.
   let sidebarItems;
 
-  switch (user!.role) {
+  switch (user?.role) {
     case userRole.ADMIN:
       sidebarItems = sidebarItemsGenerator(adminPaths, userRole.ADMIN);
       break;
