@@ -26,7 +26,7 @@ const ChangePassword = () => {
         toast.success(res.data?.message, { duration: 2000 });
 
         setTimeout(() => {
-          toast.success("Now login with your New Password to continue.", {
+          toast.success("Now Login with New Password to continue", {
             duration: 5000,
           });
           dispatch(logoutUser());
@@ -36,7 +36,7 @@ const ChangePassword = () => {
         toast.error((res?.error as TError)?.data.message, { duration: 4000 });
       }
     } catch (err: any) {
-      toast.error(err.message || "Something went wrong. Try again.");
+      toast.error(err.message || "Something went wrong. Try again");
     }
   };
 

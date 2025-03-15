@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Flex, Col, Button } from "antd";
 import PHForm from "../../../components/form/PHForm";
 import { FieldValues } from "react-hook-form";
@@ -19,6 +20,8 @@ import { offerCourseFormSchema } from "../../../schemas/courseManagement.schema"
 import { zodResolver } from "@hookform/resolvers/zod";
 import PHTimePicker from "../../../components/form/PHTimePicker";
 import { daysOptionsArray } from "../../../constants";
+import { toast } from "sonner";
+import { TOfferedCourseRes, TResponse } from "../../../types";
 
 const OfferCourse = () => {
   const [AFacultyId, setAFacultyId] = useState("");
@@ -94,14 +97,35 @@ const OfferCourse = () => {
 
   /*********************** one  block ********************** */
 
-  const onSubmit = (formData: FieldValues) => {
-    console.log(formData);
-    const offerCourseData = {
-      ...formData,
-      maxCapacity: Number(formData.maxCapacity),
-      section: Number(formData.section),
-    };
-    addOfferedCourse(offerCourseData);
+  const onSubmit = async (formData: FieldValues) => {
+    const toastId = toast.loading("Offering new Course");
+    try {
+      const offerCourseData = {
+        ...formData,
+        maxCapacity: Number(formData.maxCapacity),
+        section: Number(formData.section),
+      };
+      const res = (await addOfferedCourse(
+        offerCourseData
+      )) as TResponse<TOfferedCourseRes>;
+      console.log(res);
+      if (res.data) {
+        toast.success(res.data.message || "Successfully Offered the Course", {
+          duration: 2000,
+          id: toastId,
+        });
+      } else {
+        toast.error(res?.error?.data.message, {
+          duration: 2000,
+          id: toastId,
+        });
+      }
+    } catch (err: any) {
+      toast.error(err.message || "Something went wrong!", {
+        duration: 2000,
+        id: toastId,
+      });
+    }
   };
 
   return (

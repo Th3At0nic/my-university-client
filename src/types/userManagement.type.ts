@@ -3,6 +3,7 @@ import {
   TAcademicFaculty,
   TAcademicSemester,
 } from "./academicManagement.type";
+import { TCourse } from "./courseManagement.type";
 
 export type TStudent = {
   _id: string;
@@ -92,4 +93,22 @@ export type TFaculty = {
   academicFaculty: string; // Change Types.ObjectId to string
   academicDepartment: string; // Change Types.ObjectId to string
   isDeleted: boolean;
+};
+
+export type TOfferedCourseForStudent = {
+  _id: string;
+  semesterRegistration: string;
+  academicFaculty: string;
+  academicDepartment: string;
+  academicSemester: string;
+  course: TCourse; // Nested course object
+  faculty: string;
+  maxCapacity: number;
+  section: number;
+  days: string[]; // Example: ["Wed"]
+  startTime: string; // Format: "HH:MM"
+  endTime: string; // Format: "HH:MM"
+  createdAt: string; // ISO timestamp
+  updatedAt: string; // ISO timestamp
+  __v: number;
 };

@@ -41,3 +41,25 @@ export type TCourseFacultyResponse = {
   course: TCourse;
   faculties: TFaculty[];
 };
+
+export type TOfferedCourseRes = {
+  success: true;
+  message: string;
+  data: {
+    semesterRegistration: string;
+    academicFaculty: string;
+    academicDepartment: string;
+    academicSemester: string;
+    course: string;
+    faculty: string;
+    maxCapacity: number;
+    section: number;
+    days: string[]; // Example: ["Fri"]
+    startTime: string; // Format: "HH:MM"
+    endTime: string; // Format: "HH:MM"
+    _id: string;
+    createdAt: string; // ISO timestamp
+    updatedAt: string; // ISO timestamp
+    __v: number;
+  };
+};
