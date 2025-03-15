@@ -10,8 +10,8 @@ import PHDatePicker from "../../../components/form/PHDatePicker";
 import PHInput from "../../../components/form/PHInput";
 import { useAddRegisteredSemesterMutation } from "../../../redux/features/admin/courseManagement.api";
 import { TResponse } from "../../../types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { semesterRegistrationSchema } from "../../../schemas/courseManagement.schema";
+// import { zodResolver } from "@hookform/resolvers/zod";
+// import { semesterRegistrationSchema } from "../../../schemas/courseManagement.schema";
 
 const SemesterRegistration = () => {
   const [addSemester] = useAddRegisteredSemesterMutation();
@@ -60,7 +60,7 @@ const SemesterRegistration = () => {
       <Col span={6}>
         <PHForm
           onSubmit={onSubmit}
-          resolver={zodResolver(semesterRegistrationSchema)}
+          // resolver={zodResolver(semesterRegistrationSchema)}
         >
           <PHSelect
             label="Academic Semester"

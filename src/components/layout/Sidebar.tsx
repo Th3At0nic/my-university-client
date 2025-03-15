@@ -59,10 +59,10 @@ export const Sidebar = () => {
           color: "white",
           textAlign: "center",
           fontSize: "0.8rem",
-          margin: "5px",
+          margin: "18px auto 18px",
         }}
       >
-        <h1>Ph Uni</h1>
+        <h1>My University</h1>
       </div>
 
       {/* Sidebar Menu - Takes Remaining Space */}

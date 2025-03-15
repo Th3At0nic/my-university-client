@@ -61,11 +61,11 @@ export const semesterRegistrationSchema = z
         message: "Invalid end date",
       }),
     minCredit: z
-      .number({ required_error: "Minimum Credit is required" })
+      .string({ required_error: "Minimum Credit is required" })
       .min(1, "Minimum credit must be at least 1")
       .max(100, "Minimum credit is too high"),
     maxCredit: z
-      .number({ required_error: "Maximum Credit is required" })
+      .string({ required_error: "Maximum Credit is required" })
       .min(1, "Maximum credit must be at least 1")
       .max(100, "Maximum credit is too high"),
   })
