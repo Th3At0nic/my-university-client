@@ -21,7 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import PHTimePicker from "../../../components/form/PHTimePicker";
 import { daysOptionsArray } from "../../../constants";
 import { toast } from "sonner";
-import { TOfferedCourseRes, TResponse } from "../../../types";
+import { TOfferedCourseResponse, TResponse } from "../../../types";
 
 const OfferCourse = () => {
   const [AFacultyId, setAFacultyId] = useState("");
@@ -107,7 +107,7 @@ const OfferCourse = () => {
       };
       const res = (await addOfferedCourse(
         offerCourseData
-      )) as TResponse<TOfferedCourseRes>;
+      )) as TResponse<TOfferedCourseResponse>;
       console.log(res);
       if (res.data) {
         toast.success(res.data.message || "Successfully Offered the Course", {

@@ -1,5 +1,9 @@
-import { TAcademicSemester } from "./academicManagement.type";
-import { TFaculty } from "./userManagement.type";
+import {
+  TAcademicDepartment,
+  TAcademicFaculty,
+  TAcademicSemester,
+} from "./academicManagement.type";
+import { TFaculty, TStudent } from "./userManagement.type";
 
 export type TSemester = {
   _id: string;
@@ -42,7 +46,7 @@ export type TCourseFacultyResponse = {
   faculties: TFaculty[];
 };
 
-export type TOfferedCourseRes = {
+export type TOfferedCourseResponse = {
   success: true;
   message: string;
   data: {
@@ -62,4 +66,52 @@ export type TOfferedCourseRes = {
     updatedAt: string; // ISO timestamp
     __v: number;
   };
+};
+
+export type ObjectId = string;
+
+export type TOfferedCourse = {
+  _id: ObjectId;
+  semesterRegistration: ObjectId;
+  academicFaculty: ObjectId;
+  academicDepartment: ObjectId;
+  academicSemester: ObjectId;
+  course: ObjectId;
+  faculty: ObjectId;
+  maxCapacity: number;
+  section: number;
+  days: string[];
+  startTime: string;
+  endTime: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+};
+
+export type TCourseMarks = {
+  classTest1: number;
+  midTerm: number;
+  classTest2: number;
+  finalTerm: number;
+  _id: ObjectId;
+};
+
+export type TEnrolledCourse = {
+  _id: ObjectId;
+  semesterRegistration: TSemester;
+  academicSemester: TAcademicSemester;
+  academicFaculty: TAcademicFaculty;
+  academicDepartment: TAcademicDepartment;
+  offeredCourse: TOfferedCourse;
+  course: TCourse;
+  student: TStudent;
+  faculty: TFaculty;
+  isEnrolled: boolean;
+  courseMarks: TCourseMarks;
+  grade: string;
+  gradePoints: number;
+  isCompleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
 };
