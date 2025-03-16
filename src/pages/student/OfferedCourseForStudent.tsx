@@ -6,6 +6,7 @@ import {
 } from "../../redux/features/student/studentCourseManagement.api";
 import { Button, Card, Col, Divider, Row, Space, Tag, Typography } from "antd";
 import { NoDataCard } from "../../utils/NoDataCard";
+import LoadingSpinner from "../../utils/LoadingSpinner";
 
 type TOfferedCourseForStudent = {
   [index: string]: any;
@@ -22,7 +23,7 @@ type TSection = {
 const { Title, Text } = Typography;
 
 const OfferedCourseForStudent = () => {
-  const { data: offeredCoursesForStudent } =
+  const { data: offeredCoursesForStudent, isFetching } =
     useGetAllOfferedCourseForStudentQuery(undefined); //get my offered courses in the backend
 
   const [enrollCourse] = useEnrollCourseMutation();
@@ -56,8 +57,13 @@ const OfferedCourseForStudent = () => {
 
       const res = await enrollCourse(enrollData).unwrap();
 
+      console.log("res: ", res);
+
       if (res.data) {
-        toast.success(res.data.message, { duration: 2000, id: toastId });
+        toast.success(res.message || "Enrolled Course Successfully", {
+          duration: 2000,
+          id: toastId,
+        });
       } else if (res.error) {
         toast.error("Couldn't Enroll the course.", {
           duration: 2000,
@@ -71,6 +77,10 @@ const OfferedCourseForStudent = () => {
       });
     }
   };
+
+  if (isFetching) {
+    return <LoadingSpinner />;
+  }
 
   if (!modifiedData.length) {
     return (

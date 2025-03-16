@@ -9,13 +9,27 @@ import {
   CheckOutlined,
   CloseOutlined,
 } from "@ant-design/icons";
+import { NoDataCard } from "../../utils/NoDataCard";
+import LoadingSpinner from "../../utils/LoadingSpinner";
 
 const { Text } = Typography;
 
 const MySchedule = () => {
-  const { data: enrolledCourseData } = useGetAllEnrolledCoursesQuery(undefined);
-  console.log(enrolledCourseData);
+  const { data: enrolledCourseData, isFetching } =
+    useGetAllEnrolledCoursesQuery(undefined);
 
+  if (isFetching) {
+    return <LoadingSpinner />;
+  }
+
+  if (!enrolledCourseData?.data?.length) {
+    return (
+      <NoDataCard
+        title="No Enrolled Courses Found"
+        description="You may have already completed all your enrolled courses, or you have not enrolled in any courses yet."
+      />
+    );
+  }
   return (
     <Row gutter={[16, 16]}>
       {enrolledCourseData?.data?.map((item) => (
@@ -78,7 +92,11 @@ const MySchedule = () => {
 
                 {/* Avatar & Name together to avoid unnecessary space */}
                 <span
-                  style={{ display: "flex", alignItems: "center", gap: "4px" }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "4px",
+                  }}
                 >
                   <Avatar icon={<UserOutlined />} size="small" />
                   {item.faculty.fullName}
@@ -123,7 +141,11 @@ const MySchedule = () => {
               {/* conditional item, if isEnroleld true show first on, or show last one */}
               {item.isEnrolled ? (
                 <List.Item
-                  style={{ display: "flex", alignItems: "center", gap: "4px" }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "4px",
+                  }}
                 >
                   <Text strong style={{ color: "green" }}>
                     Enrolled
@@ -132,7 +154,11 @@ const MySchedule = () => {
                 </List.Item>
               ) : (
                 <List.Item
-                  style={{ display: "flex", alignItems: "center", gap: "4px" }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "4px",
+                  }}
                 >
                   <Text strong style={{ color: "red" }}>
                     Not Enrolled
