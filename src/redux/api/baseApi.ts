@@ -36,7 +36,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
       toast.error((result as TResponse<TError>).error?.data.message, {
         duration: 2000,
       });
-    }, 1500);
+    }, 1000);
   }
 
   if (result?.error?.status === 401) {
