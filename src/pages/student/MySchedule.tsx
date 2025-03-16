@@ -92,13 +92,14 @@ const MySchedule = () => {
 
                 {/* Avatar & Name together to avoid unnecessary space */}
                 <span
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "4px",
-                  }}
+                  style={{ display: "flex", alignItems: "center", gap: "4px" }}
                 >
-                  <Avatar icon={<UserOutlined />} size="small" />
+                  {/* Conditional Avatar */}
+                  {item.faculty.profileImage ? (
+                    <Avatar src={item.faculty.profileImage} size="default" />
+                  ) : (
+                    <Avatar icon={<UserOutlined />} size="small" />
+                  )}
                   {item.faculty.fullName}
                 </span>
               </List.Item>
