@@ -185,7 +185,12 @@ const AddMarksModal = ({
 
   return (
     <>
-      <Button onClick={showModal}>Add Marks</Button>
+      <Button onClick={showModal}>
+        {studentInfo?.courseMarks &&
+        Object.keys(studentInfo.courseMarks).length > 0
+          ? "Update Marks"
+          : "Add Marks"}
+      </Button>
       <Modal
         title="Basic Modal"
         open={isModalOpen}
@@ -193,10 +198,30 @@ const AddMarksModal = ({
         footer={null}
       >
         <PHForm onSubmit={handleSubmit}>
-          <PHInput name="classTest1" label="Class Test-1" type="number" />
-          <PHInput name="midTerm" label="Mid Term" type="number" />
-          <PHInput name="classTest2" label="Class Test-2" type="number" />
-          <PHInput name="finalTerm" label="Final Term" type="number" />
+          <PHInput
+            name="classTest1"
+            label="Class Test-1"
+            type="number"
+            defaultValue={studentInfo?.courseMarks?.classTest1 ?? ""}
+          />
+          <PHInput
+            name="midTerm"
+            label="Mid Term"
+            type="number"
+            defaultValue={studentInfo?.courseMarks?.midTerm ?? ""}
+          />
+          <PHInput
+            name="classTest2"
+            label="Class Test-2"
+            type="number"
+            defaultValue={studentInfo?.courseMarks?.classTest2 ?? ""}
+          />
+          <PHInput
+            name="finalTerm"
+            label="Final Term"
+            type="number"
+            defaultValue={studentInfo?.courseMarks?.finalTerm ?? ""}
+          />
           <Button htmlType="submit">Submit</Button>
         </PHForm>
       </Modal>

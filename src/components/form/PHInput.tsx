@@ -6,13 +6,21 @@ type TPHInputProps = {
   name: string;
   label?: string;
   disabled?: boolean;
+  defaultValue?: string | number; // Add defaultValue prop
 };
 
-const PHInput = ({ type, name, label, disabled }: TPHInputProps) => {
+const PHInput = ({
+  type,
+  name,
+  label,
+  disabled,
+  defaultValue,
+}: TPHInputProps) => {
   return (
     <div style={{ marginBottom: "15px" }}>
       <Controller
         name={name}
+        defaultValue={defaultValue ?? ""} // Ensure default value is passed
         render={({ field, fieldState: { error } }) => (
           <Form.Item label={label}>
             <Input {...field} type={type} id={name} disabled={disabled} />
