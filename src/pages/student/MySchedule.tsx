@@ -1,4 +1,4 @@
-import { useGetAllEnrolledCoursesQuery } from "../../redux/features/student/studentCourseManagement.api";
+import { useGetMyEnrolledCoursesQuery } from "../../redux/features/student/studentCourseManagement.api";
 import { Card, List, Typography, Tag, Row, Col, Avatar } from "antd";
 import {
   UserOutlined,
@@ -15,14 +15,14 @@ import LoadingSpinner from "../../utils/LoadingSpinner";
 const { Text } = Typography;
 
 const MySchedule = () => {
-  const { data: enrolledCourseData, isFetching } =
-    useGetAllEnrolledCoursesQuery(undefined);
+  const { data: MyEnrolledCourseData, isFetching } =
+    useGetMyEnrolledCoursesQuery(undefined);
 
   if (isFetching) {
     return <LoadingSpinner />;
   }
 
-  if (!enrolledCourseData?.data?.length) {
+  if (!MyEnrolledCourseData?.data?.length) {
     return (
       <NoDataCard
         title="No Enrolled Courses Found"
@@ -32,7 +32,7 @@ const MySchedule = () => {
   }
   return (
     <Row gutter={[16, 16]}>
-      {enrolledCourseData?.data?.map((item) => (
+      {MyEnrolledCourseData?.data?.map((item) => (
         <Col xs={24} sm={12} md={8} lg={6} key={item._id}>
           <Card
             title={
