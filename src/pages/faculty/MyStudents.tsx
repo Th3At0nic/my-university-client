@@ -143,10 +143,18 @@ const AddMarksModal = ({
       offeredCourse: studentInfo.offeredCourseId,
       student: studentInfo.studentId,
       courseMarks: {
-        classTest1: Number(formData.classTest1),
-        midTerm: Number(formData.midTerm),
-        classTest2: Number(formData.classTest2),
-        finalTerm: Number(formData.finalTerm),
+        ...(formData.classTest1 !== undefined && {
+          classTest1: Number(formData.classTest1),
+        }),
+        ...(formData.midTerm !== undefined && {
+          midTerm: Number(formData.midTerm),
+        }),
+        ...(formData.classTest2 !== undefined && {
+          classTest2: Number(formData.classTest2),
+        }),
+        ...(formData.finalTerm !== undefined && {
+          finalTerm: Number(formData.finalTerm),
+        }),
       },
     };
 
