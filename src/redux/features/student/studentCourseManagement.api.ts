@@ -33,6 +33,7 @@ const studentCourseManagementApi = baseApi.injectEndpoints({
         };
       },
     }),
+
     enrollCourse: builder.mutation({
       query: (data) => {
         return {
@@ -43,29 +44,7 @@ const studentCourseManagementApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["offeredCourse"],
     }),
-    getAllEnrolledCourses: builder.query({
-      query: (args) => {
-        const params = new URLSearchParams();
 
-        if (args) {
-          args.forEach((item: TQueryParam) => {
-            params.append(item.name, item.value as string);
-          });
-        }
-        return {
-          url: "/enrolled-courses",
-          method: "GET",
-          params: params,
-        };
-      },
-      providesTags: ["enrolledCourses"],
-      transformResponse: (response: TResponseRedux<TEnrolledCourse[]>) => {
-        return {
-          data: response?.data,
-          meta: response?.meta,
-        };
-      },
-    }),
     getMyEnrolledCourses: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
@@ -95,6 +74,5 @@ const studentCourseManagementApi = baseApi.injectEndpoints({
 export const {
   useGetAllOfferedCourseForStudentQuery,
   useEnrollCourseMutation,
-  useGetAllEnrolledCoursesQuery,
   useGetMyEnrolledCoursesQuery,
 } = studentCourseManagementApi;
